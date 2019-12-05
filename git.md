@@ -116,6 +116,16 @@ origin  https://github.com/tumorbox/TIL.git (push)
 
 ```bash
 $ git push origin master
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 807 bytes | 807.00 KiB/s, done.
+Total 3 (delta 1), reused 0 (delta 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To https://github.com/tumorbox/TIL.git
+   83183a0..b503c87  master -> master
+
 
 ```
 
