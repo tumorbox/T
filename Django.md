@@ -57,3 +57,79 @@ AIzaSyDmM8To4UYKBMEvfnmhY-EK8Yxpwoa3DWQ
    
 
    
+
+   ## Start app
+
+   
+
+   ```bash
+   $ python manage.py startapp pages
+   
+   ```
+
+   - app 설치 후 settings.py에 설정 변경
+
+   ```py
+    Application definition
+   
+   INSTALLED_APPS = [
+       'pages',       
+       
+       'django.contrib.admin',
+       'django.contrib.auth',
+       'django.contrib.contenttypes',
+       'django.contrib.sessions',
+       'django.contrib.messages',
+       'django.contrib.staticfiles',
+   ]
+   
+   
+   LANGUAGE_CODE = 'ko-kr'
+   TIME_ZONE = 'Asia/Seoul'
+   ```
+
+   - 서버 실행해서 변경 사항 확인
+
+
+
+
+
+
+
+
+
+
+
+# Django_form
+### 0612	
+
+
+
+throw.html 상대경로 사용
+
+
+
+
+
+
+
+가져오는 방식이 2가지
+
+- []  ---> 값이 없을 때 오류 발생
+
+- .get --->  값이 없어도 오류 발생 안함. 값이 없으면 none 출력
+
+  -  request.GET == 딕셔너리와 유사하다.
+
+     request.GET != dict()
+
+```bas
+print(request.GET['message'])
+print(request.GET.get('message'))
+```
+
+
+
+data는 주소창에서 받아 오는게 아님
+
+Query String parameter에..
