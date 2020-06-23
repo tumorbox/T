@@ -1,3 +1,7 @@
+
+
+
+
 파이썬 설치
 
 https://www.python.org/downloads/release/python-376/
@@ -133,3 +137,128 @@ print(request.GET.get('message'))
 data는 주소창에서 받아 오는게 아님
 
 Query String parameter에..
+
+
+
+
+
+
+
+
+
+# Django_relation
+
+06/22
+
+cascade만 사용
+
+
+
+
+
+django 확장 툴 설치
+
+```bash
+$ pip install django-extensions
+```
+
+settings에 등록해줘야 한다.
+
+'django_extensions' 으로 등록
+
+
+
+쉘창을 켠다  -> mysite 위치로 가서 켜야한다.
+
+```bash
+$ python manage.py shell_plus
+```
+
+
+
+ipython 설치
+
+```bash
+$ pip install ipython
+```
+
+
+
+0623
+
+# 로그인/로그아웃
+
+## Admin 관리자 계정 생성
+
+```python
+# musicians/admin.py -admin 정의
+from.models import Musician, Album
+admin.site.register(Musician, Alubm)
+```
+
+```bash
+# bash 관리자계정 생성
+python manage.py createsuperuser
+```
+
+
+
+http -> 일반적으로 상태를 저장하지 않는다.
+
+
+
+### AuthenticationForm
+
+- AuthenticationForm은 ModelForm이 아닌 Form 상속
+
+- 로그인 함수 이용해서 로그인시 import 필요
+
+```python
+from django.contrib.auth import login as auth_login
+
+```
+
+```python
+def login(request):
+    if request.method == "POST":
+        form = AuthenticationForm(request, request.POST)
+        # AuthenticationForm은 ModelForm이 아닌 Form 상속
+        # 별도로 정의된 Model이 없다는 뜻 
+        # 그래서 넘겨주는 인자가 달라진다.
+        if form.is_valid():
+            # 로그인 DB에 뭔가 작성하는 것은 동일하지만, 연결된 모델이 있는건 아니다.
+            # 그럼 무엇을 확인해야 하는가?
+            # -> 세션과 유저 정보를 확인해야한다.
+            # 그래서 request도 같이 넘겨줘야 한다.
+            
+            auth_login(request, form.get_user())
+            return redirect('articles:index')
+    else:
+        form = AuthenticationForm()        
+    context = {
+        'form': form
+    }
+    return render(request, 'accounts/login.html', context)
+```
+
+
+
+- user.is_authenticated 를 이용해서 로그인상태 저장
+
+``` html
+<body>
+  {% if user.is_authenticated %}
+    <h3>{{ user.username }}님 환영합니다.</h3>
+    <a href = "{% url 'accounts:logout' %}" >로그아웃</a>
+  {% else %}
+    <h3>로그인 or 회원가입 </h3>
+    <a href = "{% url 'accounts:login' %}" >로그인</a>
+    <a href = "{% url 'accounts:signup' %}" >회원가입</a>
+  {% endif %}
+  <hr>
+```
+
+```python
+from django.contrib.auth.decorators import login_required
+```
+
